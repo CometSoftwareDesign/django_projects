@@ -25,6 +25,6 @@ urlpatterns = [
     path('create/',views.create_account,name='create'),
     path('balance/', views.balance, name='balance'),
     path('transaction/', views.transaction, name='transaction'),
-    path('<int:pk>/balance/', views.balance,name='balance'),
+
 
 ]
