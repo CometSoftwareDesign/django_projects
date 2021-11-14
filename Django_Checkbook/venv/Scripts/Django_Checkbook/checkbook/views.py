@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import AccountForm, TransactionForm
 import get_object_or_404
-from models import Account,Transaction
+from .models import Account,Transaction
 # Create your views here.
 def home(request):
     form = TransactionForm(data=request.POST or None)
@@ -23,7 +23,7 @@ def balance(request, pk):
         else:
             current_total -= t.amount
             table_contents.update({t : current_total})
-    content = {'account': account}
+    content = {'account': account, 'table_contents': table_contents, 'balance' : current_total}
     return render(request, 'checkbook/BalanceSheet.html', content)
 
 def create_account(request):
@@ -32,8 +32,8 @@ def create_account(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-        content = {'form':form}
-        return render(request, 'checkbook/CreateNewAccount.html', content)
+    content = {'form':form}
+    return render(request, 'checkbook/CreateNewAccount.html', content)
 
 def transaction(request):
     form = TransactionForm(data=request.POST or None)
