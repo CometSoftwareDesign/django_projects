@@ -1,7 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Account, Transaction
 from .forms import AccountForm, TransactionForm
-import get_object_or_404
-from .models import Account,Transaction
 # Create your views here.
 def home(request):
     form = TransactionForm(data=request.POST or None)
